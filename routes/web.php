@@ -28,3 +28,6 @@ Route::delete('/questions/{question}/favorites', 'FavoritesController@destroy')-
 
 Route::post('/questions/{question}/vote', 'VoteQuestionController');
 Route::post('/answers/{answer}/vote', 'VoteAnswerController');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
