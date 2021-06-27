@@ -13,8 +13,11 @@ window.Vue = require('vue');
 import VueIziToast from 'vue-izitoast';
  
 import 'izitoast/dist/css/iziToast.css';
- 
+import Vue from 'vue';
+import Authoriation from './authorization/authorize'
+
 Vue.use(VueIziToast);
+Vue.use(Authoriation);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
