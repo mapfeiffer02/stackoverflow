@@ -27,7 +27,7 @@ export default {
     methods: {
         create(){
             axios.post(`/answers/${this.id}/accept`)
-            .then( res=>{
+            .then( res => {
                 this.$toast.success(res.data.message, "Success",{timeout: 3000, position:'bottomLeft'});
                 this.isBest = true
             })
