@@ -52385,6 +52385,11 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Answer_vue__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__Answer_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__Answer_vue__);
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
+
+//
+//
+//
 //
 //
 //
@@ -52405,7 +52410,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['answers', 'count'],
+    props: ['question'],
 
     components: { Answer: __WEBPACK_IMPORTED_MODULE_0__Answer_vue___default.a },
 
@@ -52413,6 +52418,32 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         title: function title() {
             return this.count + " " + (this.count > 1 ? 'Answers' : 'Answer');
         }
+    },
+
+    created: function created() {
+        this.fetch("/questions/" + this.questionId + "/answers");
+    },
+
+
+    methods: {
+        fetch: function fetch(endpoint) {
+            var _this = this;
+
+            axios.get(endpoint).then(function (res) {
+                var _answers;
+
+                (_answers = _this.answers).push.apply(_answers, _toConsumableArray(res.data.data));
+                _this.nextURL = res.data.next_page_url;
+            });
+        }
+    },
+    data: function data() {
+        return {
+            questionId: this.question.id,
+            count: this.question.answers_count,
+            answers: [],
+            nextURL: null
+        };
     }
 });
 
@@ -52751,7 +52782,24 @@ var render = function() {
                     key: answer.id,
                     attrs: { answer: answer }
                   })
-                })
+                }),
+                _vm._v(" "),
+                _c("div", { staticClass: "text-center mt-3" }, [
+                  _vm.nextURL
+                    ? _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline btn-secondary",
+                          on: {
+                            click: function($event) {
+                              return _vm.fetch(_vm.nextURL)
+                            }
+                          }
+                        },
+                        [_vm._v("Load more answers")]
+                      )
+                    : _vm._e()
+                ])
               ],
               2
             )

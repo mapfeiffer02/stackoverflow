@@ -8,6 +8,9 @@
                     </div>
                     <hr>
                     <answer v-for="answer in answers" :answer="answer" :key="answer.id"></answer>
+                    <div class="text-center mt-3">
+                        <button v-if="nextURL" class="btn btn-outline btn-secondary" @click="fetch(nextURL)">Load more answers</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -18,13 +21,35 @@
 import Answer from "./Answer.vue"
 
 export default {
-    props:['answers', 'count'],
+    props:['question'],
     
     components:{ Answer },
 
     computed:{
         title(){
             return this.count + " " + (this.count > 1 ? 'Answers' : 'Answer');
+        }
+    },
+
+    created(){
+        this.fetch(`/questions/${this.questionId}/answers`)
+    },
+
+    methods:{
+        fetch(endpoint){
+            axios.get(endpoint)
+            .then(res => {
+                this.answers.push(...res.data.data);
+                this.nextURL = res.data.next_page_url
+            })
+        }
+    },
+    data(){
+        return{
+            questionId: this.question.id,
+            count: this.question.answers_count,
+            answers: [],
+            nextURL: null
         }
     }
 }
