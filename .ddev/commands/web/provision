@@ -12,4 +12,5 @@ cd $DOCROOT && npm install
 cd $DOCROOT && npm run prod
 cd $DOCROOT && php artisan storage:link
 cd $DOCROOT && php artisan migrate:fresh
+cd $DOCROOT && php artisan passport:install
 cd $DOCROOT && php artisan db:seed

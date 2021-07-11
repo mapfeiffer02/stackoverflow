@@ -2,19 +2,21 @@
 
 namespace App;
 
+use Parsedown;
 use Illuminate\Database\Eloquent\Model;
 
 class Question extends Model
 {
     use VotableTrait;
-    
+
     protected $fillable = ['title', 'body'];
 
     protected $appends = ['created_date', 'is_favorited', 'favorites_count', 'body_html'];
-    
-    public function user() {
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
-    }    
+    }
 
     public function setTitleAttribute($value)
     {
@@ -82,7 +84,7 @@ class Question extends Model
     public function getFavoritesCountAttribute()
     {
         return $this->favorites->count();
-    }    
+    }
 
     public function getExcerptAttribute()
     {
@@ -96,6 +98,6 @@ class Question extends Model
 
     private function bodyHtml()
     {
-        return \Parsedown::instance()->text($this->body);
+        return Parsedown::instance()->text($this->body);
     }
 }

@@ -12,10 +12,12 @@ class AnswersController extends Controller
     {
         $this->middleware('auth')->except('index');
     }
+
     public function index(Question $question)
     {
-        return $question->answers()->with('user')->simplePaginate(3);
+        return $question->answers()->with('user')->simplePaginate(3);    
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -28,13 +30,14 @@ class AnswersController extends Controller
             'body' => 'required'
         ]) + ['user_id' => \Auth::id()]);
 
-        if($request->expectsJson())
+        if ($request->expectsJson())
         {
             return response()->json([
                 'message' => "Your answer has been submitted successfully",
                 'answer' => $answer->load('user')
             ]);
         }
+
         return back()->with('success', "Your answer has been submitted successfully");
     }    
 
@@ -87,12 +90,14 @@ class AnswersController extends Controller
         $this->authorize('delete', $answer);
 
         $answer->delete();
-        if(request()->expectsJson())
+
+        if (request()->expectsJson())
         {
             return response()->json([
                 'message' => "Your answer has been removed"
             ]);
         }
+
         return back()->with('success', "Your answer has been removed");
     }
 }

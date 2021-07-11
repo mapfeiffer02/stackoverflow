@@ -19,7 +19,7 @@
                                 <a @click.prevent="edit" class="btn btn-sm btn-outline-info">Edit</a>
                             @endcan
                             @can ('delete', $answer)
-                            <button class="btn btn-sm btn-outline-danger" @click="destroy">Delete</button>
+                                <button @click="destroy" class="btn btn-sm btn-outline-danger">Delete</button>                                
                             @endcan
                         </div>
                     </div>
