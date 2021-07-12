@@ -1,6 +1,6 @@
 export default {
     modify (user, model) {
-        return user.id === model.user_id;
+        return user.id === model.user.id;
     },
 
     accept (user, answer) {

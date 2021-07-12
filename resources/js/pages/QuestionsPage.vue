@@ -1,10 +1,56 @@
 <template>
-  <h1>Questions page</h1>
+  <div class="container">
+      <div class="row justify-content-center">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header">
+                      <div class="d-flex align-items-center">
+                          <h2>All Questions</h2>
+                          <div class="ml-auto">
+                              <a href="#" class="btn btn-outline-secondary">Ask Question</a>
+                          </div>
+                      </div>
+                      
+                  </div>
+
+                  <div class="card-body">
+                      <div v-if="questions.length">
+                        <question-excerpt v-for="question in questions" :question="question" :key="question.id"></question-excerpt>
+                      </div>
+                          <div class="alert alert-warning">
+                              <strong>Sorry</strong> There are no questions available.
+                          </div>
+
+                      <!-- pagination to be done-->
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </template>
 
 <script>
-export default {
+import QuestionExcerpt from '../components/QuestionExcerpt.vue'
 
+export default {
+  components:{QuestionExcerpt},
+
+  data () {
+    return {
+      questions: []
+    }
+  },
+  methods:{
+    fetchQuestions(){
+      axios.get('/api/questions')
+      .then(({data}) => {
+        this.questions = data.data;
+      })
+    }
+  },
+  mounted(){
+    this.fetchQuestions();
+  }
 }
 </script>
 
