@@ -1,6 +1,7 @@
 import QuestionsPage from '../pages/QuestionsPage.vue'
 import PostsPage from '../pages/MyPostsPage.vue'
 import QuestionPage from '../pages/QuestionPage.vue'
+import CreateQuestionPage from '../pages/CreateQuestionPage.vue'
 import NotFoundPage from '../pages/NotFoundPage.vue'
 
 const routes = [
@@ -8,6 +9,16 @@ const routes = [
         path: '/',
         component: QuestionsPage,
         name: 'home'
+    },
+    {
+        path: '/home',
+        component: QuestionsPage,
+        name: 'home'
+    },
+    {
+        path: '/questions/create',
+        component: CreateQuestionPage,
+        name: 'questions.create'
     },
     {
         path: '/questions',
